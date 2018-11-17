@@ -24,33 +24,18 @@ function action_ChangeText($r, $g, $b)
 
 function action_GetCalendar($month)
 {
-    $months = [
-        'Январь',
-        'Февраль',
-        'Март',
-        'Апрель',
-        'Май',
-        'Июнь',
-        'Июль',
-        'Август',
-        'Сентябрь',
-        'Октябрь',
-        'Ноябрь',
-        'Декабрь'
-    ];
     $curentDate = new DateTime;
 
     $resDate = $curentDate->setDate($curentDate->format('Y'), $month, 1);
     $resDate = getdate($resDate->getTimestamp());
 
-    $resMonth = $months[$resDate['mon'] - 1];
     $days = days_in_month($resDate['mon'], $curentDate->format('Y'));
 
     $weeks = "";
     ($resDate['wday'] == 0) ? $wday = 6 : $wday = $resDate['wday'] - 1;
+
     createWeek(1, $wday, $days, $weeks);
 
-//    return [$resDate, $days, $resMonth];
     return $weeks;
 }
 
